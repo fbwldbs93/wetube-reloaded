@@ -1,12 +1,12 @@
 import express from "express";
-import { see, edit, deleteVideo, upload } from "../controllers/videoController"
+import { watch, getEdit,postEdit, getUpload, postUpload } from "../controllers/videoController"
 
 const videoRouter = express.Router();
 
 // const handleWatch = (req, res) => res.send("Watch video")
 // const handleEdit = (req, res) => res.send("Edit Video")
 
-videoRouter.get('/upload', upload)
+
 /*
     :::: 중요 !!!! 
     /upload 를 가장 상단에 위치시켜야하는 이유
@@ -15,9 +15,14 @@ videoRouter.get('/upload', upload)
     - /upload 를 입력했을 때 브라우저는 이 upload 도 변수로 인식을 해버리게 되기 때문.
 
 */
-videoRouter.get('/:id(\\d+)', see)
+videoRouter.get('/:id(\\d+)', watch)
 //Js 는 정규식 작성 시, \\이렇게 두개 사용해야함
-videoRouter.get('/:id(\\d+)/edit', edit)
-videoRouter.get('/:id(\\d+)/delete', deleteVideo)
+
+videoRouter.route('/:id(\\d+)/edit').get(getEdit).post(postEdit);
+// videoRouter.get('/:id(\\d+)/edit', getEdit)
+// videoRouter.post('/:id(\\d+)/edit',postEdit)
+
+videoRouter.route("/upload").get(getUpload).post(postUpload);
+
 
 export default videoRouter

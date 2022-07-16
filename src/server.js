@@ -1,9 +1,10 @@
+import "./db";
+import "./models/Video";
 import express from "express";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
-
 const PORT = 4000;
 
 
@@ -11,25 +12,49 @@ const PORT = 4000;
 const app = express();
 const logger = morgan("dev");
 
+
+console.log(process.cwd())
+//현재작업중인 디렉토리 확인
+//C:\Users\Ryu\wetube 라고 뜸
+//views 폴더까지 접근하려면 작업 디렉토리가 C:\Users\Ryu\wetube\src 가 되어야함
+/*
+    현재작업중인 디렉토리는
+    서버를 기동하는 파일의 위치에 따라 결정됨
+    즉, 어디서 node.js를 부르고 어디서 서버를 기동하고 있는지임
+
+    누가 서버를 기동함?
+    = package.json 임
+
+    즉, 우리가 Wetube 안에 있는 package.json에서 node.js 를 실행하고 있기 때문에, 
+    C:\Users\Ryu\wetube 가 현재 작업 디렉토리가 되는 것
+
+*/
+
+
+
+app.set('view engine', 'pug') 
+//뷰 엔진을 pug로 세팅
+/*
+    express 가 views 디렉토리에서 pug 파일을 찾도록 설정되어있기 때문에
+    따로 pug 파일을 import 를 해줄 필요가 없음
+*/
+app.set('views', process.cwd() + '/src/views');
+//views 폴더가 C:\Users\Ryu\wetube\src\views 에서 인식될 수 있도록 바꾸기
+
+
+
+
 app.use(logger)
+app.use(express.urlencoded({extended:true}))
+/*
+    routes 를 사용하기 전에 이 express.urlencoded middleware를 사용해야함
+    - 그래야 이 express.urlencoded 가 form 을 이해하고
+    - 그것들을 JS 로 변형시켜줘서 우리가 사용할 수 있게 만들어줌
 
-// const globalRouter = express.Router(); //글로벌라우터
-
-// const handleHome2 = (req, res) => res.send('Home')
-
-// globalRouter.get('/', handleHome2)
-
-// const userRouter = express.Router(); //유저라우터
-
-// const handleEditUser = (req, res) => res.send('Edit User')
-
-// userRouter.get('/edit', handleEditUser)
-
-// const videoRouter = express.Router(); //비디오라우터
-
-// const handleWatchVideo = (req, res) => res.send("Watch video")
-
-// videoRouter.get('/watch', handleWatchVideo)
+    express.urlencoded
+    - 너의 express app 이 form 의 value 를 이해할 수 있도록 하고
+    우리가 쓸 수 있는 JS 형식으로 변형 시켜줌
+*/
 
 app.use('/', globalRouter) //globalRouter 임포트 해줘야함
 app.use('/videos', videoRouter);
@@ -61,15 +86,7 @@ const handleHome = (req, res) => {
 }
 //토막 지식! * req, res 는 express에서 제공받는거임
 
-/*
-const handleLogin = (req, res) => {
-    return res.send("Login Here")
-}
 
-const handleProtected = (req, res) => {
-    return res.send("welcome to the privated lounge")
-}
-*/
 
 //----- protection middleware ------
 
@@ -81,14 +98,7 @@ const handleProtected = (req, res) => {
 // app.use(privateMiddleware)
 
 
-//----- app.get ------
-/*
-app.get("/", handleHome) //get request
-app.get("/protected", handleProtected)
-app.get("/login", handleLogin)
-*/
-
-const handleListening = () => console.log(`Server listening on port ${PORT}`)
+const handleListening = () => console.log(`✅ Server listening on port ${PORT}`)
 
 //------ app.listen ------
 app.listen(PORT, handleListening) //port listen

@@ -1,0 +1,27 @@
+extends base.pug
+
+block content 
+    h4 Change Title of video
+    //-action :: 데이터 보낼 곳
+    //-action="/save-changes"
+    //-제출버튼 누르면 action에서 설정한 URL 로 이동함
+    //-현재 url에서 벗어나지 않을 거라면 action설정은 안해도 됨
+    form(method="POST")
+        input(name="title", placeholder="Video Title", value=video.title, required)
+        input(value ="Save", type="submit")
+
+
+    //- method 는 기본적으로 GET
+    //- method는 form 과 backend 사이의 정보 전송에 관한 방식
+
+    //-GET
+    //- 단순히 데이터를 받는게 목적일 때 사용
+    //- 구글이나 네이버에서 뭔가 검색을 할 때
+    //- 그 검색어가 주소창에 포함되어 있을 것임
+    //- form에 있는 정보가 url 에 들어감
+    //- input에서 설정한 name="title" 관련 문구가 주소창에 찍힘
+
+    //-POST
+    //-파일을 보내거나, database 에 있는 값을 바꾸는 뭔가를 보낼 때 사용
+    //-로그인 할 때도 POST 사용
+    //- input에서 설정한 name="title" 관련 문구가 주소창에 찍히지 않음 XXX

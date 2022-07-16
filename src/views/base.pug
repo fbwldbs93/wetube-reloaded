@@ -1,0 +1,36 @@
+doctype html
+html(lang='ko')
+    head 
+        title #{pageTitle} | Wetube
+
+            //-어떨 때 #{변수} 를 사용하는가?
+            //-위와 같이 변수 와 일반 텍스트를 같이 써야할 때, 
+            
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+    body 
+        header
+            //- if fakeUser.loggedIn
+            //-     small Hello #{fakeUser.username}
+            //- nav
+            //-     ul
+            //-         if fakeUser.loggedIn
+            //-             li
+            //-                 a(href='/logout') Logout
+            //-         else
+            //-             li
+            //-                 a(href='/login') Login
+            h1=pageTitle
+            //-태그에도 이렇게 변수 값을 넣을 수 있음
+            //-title의 pageTitle 처럼 #{} 안에 넣지 않는 이유는
+            //-일반 텍스트와 섞어서 쓰지 않고 변수만 단독으로 사용하기 때문
+            nav 
+                ul 
+                    li 
+                        a(href="/videos/upload") Upload Video
+        main
+            block content 
+            //-콘텐츠를 위한 공간 마련
+        include partials/footer.pug
+        //- 퍼그의 장점
+        //-1. 가벼움
+        //-2. 반복할 필요가 없음

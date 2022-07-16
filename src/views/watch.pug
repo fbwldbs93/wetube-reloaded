@@ -1,0 +1,12 @@
+extends base.pug
+
+block content 
+    h3 #{video.views} #{video.views === 1 ? "view" : "views"}
+    a(href=`${video.id}/edit`) Edit Video &rarr;
+    //- 절대경로
+    //- /url :: root 경로 + /url 로 이동 
+    //- root/videos/1 => root/edit
+
+    //- 상대경로
+    //- url :: 현재 페이지에서 마지막 경로만 url 로 바꿔줌
+    //- root/videos/1 => root/videos/edit

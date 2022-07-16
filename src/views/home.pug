@@ -1,0 +1,17 @@
+extends base.pug
+include mixins/video
+
+block content 
+    //- h1 I love #{tomato}!
+    //- input(placeholder="what's your name")
+    //- button send
+    h2 Welcome here you will see the trending videos
+    each potato in videos
+        +video(potato)
+        //-mixin video()함수에 potato 인자를 넣어주는 것
+    else 
+        div Sorry, nothing found. 
+
+    //-----iteration --- (pug documatation 참고)
+    //-forEach 와 똑같이 동작
+    //-videos 는 Controller 로 넘겨주는 Array 의 이름과 동일해야함
