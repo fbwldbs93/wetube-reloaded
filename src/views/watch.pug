@@ -1,8 +1,12 @@
 extends base.pug
 
 block content 
-    h3 #{video.views} #{video.views === 1 ? "view" : "views"}
+    //- h3 #{video.views} #{video.views === 1 ? "view" : "views"}
+    div
+        p=video.description
+        small=video.createdAt
     a(href=`${video.id}/edit`) Edit Video &rarr;
+    a(href=`${video.id}/delete`) Delete Video &rarr;
     //- 절대경로
     //- /url :: root 경로 + /url 로 이동 
     //- root/videos/1 => root/edit

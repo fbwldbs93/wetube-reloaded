@@ -1,13 +1,15 @@
 extends base.pug
 
 block content 
-    h4 Change Title of video
+    h4 Update Video
     //-action :: 데이터 보낼 곳
     //-action="/save-changes"
     //-제출버튼 누르면 action에서 설정한 URL 로 이동함
     //-현재 url에서 벗어나지 않을 거라면 action설정은 안해도 됨
     form(method="POST")
-        input(name="title", placeholder="Video Title", value=video.title, required)
+        input(name="title", placeholder="Video Title", value=video.title, required, maxlength =80)
+        input(name="description",placeholder="Description", required, type="text", minlength = 20, value=video.description)
+        input(name="hashtags",placeholder="Hashtags, separated by comma.", required, type="text", value=video.hashtags.join())
         input(value ="Save", type="submit")
 
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { edit, remove, logout, see } from "../controllers/userController";
+import { edit, remove, logout, see, startGithubLogin, finishGithubLogin } from "../controllers/userController";
 
 const userRouter = express.Router();
 
@@ -11,6 +11,11 @@ userRouter.get('/edit', edit)
 userRouter.get('/remove', remove)
 userRouter.get(':id', see)
 userRouter.get('/logout', logout)
+
+//user를 Github 로 redirect 시킬 라우터
+userRouter.get('/github/start', startGithubLogin)
+
+userRouter.get('/github/finish', finishGithubLogin)
 
 
 /*
